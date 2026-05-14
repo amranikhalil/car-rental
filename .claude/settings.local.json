@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(npm create *)",
+      "Bash(npx prisma *)",
+      "Bash(npm run *)",
+      "Bash(npx ts-node *)",
+      "Bash(curl -s http://localhost:3000/api/cars)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(curl -s http://localhost:3000/ping)",
+      "Bash(npx shadcn@latest init -d)",
+      "Bash(npx shadcn@4.6.0 init -d)",
+      "Bash(npx shadcn@4.6.0 add card input label)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(npx shadcn@4.6.0 add table dialog select badge alert-dialog separator)",
+      "Bash(curl -s http://localhost:3000/api/airports)",
+      "Bash(curl *)",
+      "Bash(node -e \"require\\('tw-animate-css'\\)\")",
+      "Bash(node -e \"require\\('@fontsource-variable/geist'\\)\")"
+    ]
+  }
+}
