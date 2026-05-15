@@ -4,6 +4,7 @@ import LoginPage from '@/pages/LoginPage'
 import CarsPage from '@/pages/cars/CarsPage'
 import ReservationsPage from '@/pages/reservations/ReservationsPage'
 import SearchPage from '@/pages/search/SearchPage'
+import HomePage from '@/pages/home/HomePage'
 import { useAuthStore } from '@/store/auth.store'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -70,8 +71,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/login" element={<LoginPage />} />
 
         {/* Protected admin routes */}
         <Route element={<ProtectedRoute />}>

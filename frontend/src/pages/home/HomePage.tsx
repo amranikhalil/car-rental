@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { addDays, isBefore, format } from 'date-fns'
+import { addDays, format, isBefore } from 'date-fns'
 import { Car as CarIcon, Fuel, Users, Cog, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { airportsApi, carsApi, type Car } from '@/api/cars'
-import BookingModal from './BookingModal'
+import BookingModal from '@/pages/search/BookingModal'
 import SearchBar from '@/components/SearchBar'
+import heroCar from '@/assets/ferari.png'
 
 const FUEL_LABEL: Record<string, string> = { ESSENCE: 'Essence', DIESEL: 'Diesel', ELECTRIQUE: 'Électrique' }
 const TRANS_LABEL: Record<string, string> = { MANUAL: 'Manuelle', AUTOMATIC: 'Automatique' }
@@ -19,14 +20,14 @@ interface SearchParams {
   endDate: Date | undefined
 }
 
-export default function SearchPage() {
-  const [form, setForm] = useState<SearchParams>({
-    airportId: '',
-    startDate: undefined,
-    endDate: undefined,
-  })
+export default function HomePage() {
+  const [showSearch, setShowSearch] = useState(false)
+  const [form, setForm] = useState<SearchParams>({ airportId: '', startDate: undefined, endDate: undefined })
   const [activeParams, setActiveParams] = useState<SearchParams | null>(null)
   const [booking, setBooking] = useState<Car | null>(null)
+
+  const searchRef = useRef<HTMLDivElement>(null)
+  const carsRef = useRef<HTMLDivElement>(null)
 
   const { data: airports = [] } = useQuery({
     queryKey: ['airports'],
@@ -47,6 +48,16 @@ export default function SearchPage() {
 
   const canSearch = !!form.airportId && !!form.startDate && !!form.endDate
   const isFiltered = activeParams !== null
+  const brands = [...new Set(cars.map((c) => c.brand))]
+
+  const activeAirport = activeParams?.airportId
+    ? airports.find((a) => String(a.id) === activeParams.airportId)
+    : null
+
+  function handleShowSearch() {
+    setShowSearch(true)
+    setTimeout(() => searchRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
+  }
 
   function handleSearch() {
     if (!canSearch) return
@@ -68,38 +79,83 @@ export default function SearchPage() {
   }
   function setEnd(d: Date | undefined) { setForm((p) => ({ ...p, endDate: d })) }
 
-  const activeAirport = activeParams?.airportId
-    ? airports.find((a) => String(a.id) === activeParams.airportId)
-    : null
-
   return (
     <div className="min-h-screen bg-muted/30">
       {/* Header */}
-      <div className="bg-background border-b">
-        <div className="max-w-5xl mx-auto px-6 py-5">
-          <h1 className="text-2xl font-bold tracking-tight">Airsline</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
-            Réservez votre voiture avant d'atterrir
-          </p>
+      {/* <header className="bg-background border-b">
+        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center">
+          <span className="text-xl font-bold tracking-tight">Airsline</span>
         </div>
-      </div>
+      </header> */}
 
-      {/* Search form */}
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        <SearchBar
-          airports={airports}
-          airportId={form.airportId}
-          startDate={form.startDate}
-          endDate={form.endDate}
-          onAirportChange={setAirport}
-          onStartChange={setStart}
-          onEndChange={setEnd}
-          onSearch={handleSearch}
-          canSearch={canSearch}
+      {/* Hero */}
+      <section className="bg-background border-b">
+        <div className="max-w-4xl mx-auto px-6 pt-20 pb-0 flex flex-col items-center text-center gap-5">
+          <h1 className="text-6xl font-bold tracking-tight leading-tight">
+            Réservez votre voiture<br />avant d'atterrir
+          </h1>
+          <p className="text-base text-muted-foreground max-w-md">
+            Airsline vous permet de choisir et réserver votre voiture de location
+            dans 7 aéroports algériens — avant même de prendre l'avion.
+          </p>
+          <div className="flex gap-3">
+            <Button size="lg" className="rounded-full px-6" onClick={handleShowSearch}>
+              Réserver maintenant
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="rounded-full px-6"
+              onClick={() => carsRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Voir les voitures
+            </Button>
+          </div>
+      <div className="w-full mt-2">
+        <img
+          src={heroCar}
+          alt="Voiture de location"
+          className="w-full object-contain max-h-100"
         />
+      </div>
+        </div>
+      </section>
 
-        {/* Results */}
-        <div className="mt-8 space-y-4">
+      {/* Search form — slides in on demand */}
+      {showSearch && (
+        <div ref={searchRef} className="border-b bg-background animate-in slide-in-from-top-4 duration-300">
+          <div className="max-w-5xl mx-auto px-6 py-6">
+            <SearchBar
+              airports={airports}
+              airportId={form.airportId}
+              startDate={form.startDate}
+              endDate={form.endDate}
+              onAirportChange={setAirport}
+              onStartChange={setStart}
+              onEndChange={setEnd}
+              onSearch={handleSearch}
+              canSearch={canSearch}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Brand logos strip */}
+      {/* {brands.length > 0 && (
+        <div className="border-b bg-background">
+          <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-center gap-10 flex-wrap">
+            {brands.map((brand) => (
+              <span key={brand} className="text-xl font-bold text-muted-foreground/40 tracking-tight">
+                {brand}
+              </span>
+            ))}
+          </div>
+        </div>
+      )} */}
+
+      {/* Car grid */}
+      <div className="max-w-5xl mx-auto px-6 py-8">
+        <div ref={carsRef} className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">
               {isLoading
@@ -118,7 +174,7 @@ export default function SearchPage() {
 
           {!isLoading && cars.length === 0 && (
             <Card>
-              <CardContent className="py-16 text-center text-muted-foreground space-y-2"> 
+              <CardContent className="py-16 text-center text-muted-foreground space-y-2">
                 <CarIcon className="w-10 h-10 mx-auto opacity-30" />
                 <p className="font-medium">Aucune voiture disponible</p>
                 <p className="text-sm">Essayez d'autres dates ou un autre aéroport.</p>
