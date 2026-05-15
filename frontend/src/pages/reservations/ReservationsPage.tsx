@@ -10,7 +10,11 @@ import {
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog'
-import { Eye, CheckCircle, XCircle, RotateCcw } from 'lucide-react'
+import { Eye, CheckCircle, XCircle, RotateCcw, Trash2 } from 'lucide-react'
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 
 const STATUS_TABS: { value: ReservationStatus | 'ALL'; label: string }[] = [
   { value: 'ALL', label: 'Toutes' },
@@ -39,6 +43,7 @@ export default function ReservationsPage() {
   const qc = useQueryClient()
   const [tab, setTab] = useState<ReservationStatus | 'ALL'>('ALL')
   const [detail, setDetail] = useState<Reservation | null>(null)
+  const [toDelete, setToDelete] = useState<Reservation | null>(null)
 
   const { data: reservations = [], isLoading } = useQuery({
     queryKey: ['reservations', tab],
@@ -48,6 +53,11 @@ export default function ReservationsPage() {
   const statusMutation = useMutation({
     mutationFn: ({ id, status }: { id: number; status: ReservationStatus }) =>
       reservationsApi.updateStatus(id, status),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['reservations'] }),
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => reservationsApi.delete(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['reservations'] }),
   })
 
@@ -161,6 +171,12 @@ export default function ReservationsPage() {
                           </Button>
                         </>
                       )}
+                      {r.status === 'CANCELLED' && (
+                        <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive"
+                          onClick={() => setToDelete(r)}>
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
@@ -219,6 +235,26 @@ export default function ReservationsPage() {
           </DialogContent>
         )}
       </Dialog>
+
+      <AlertDialog open={!!toDelete} onOpenChange={(o) => !o && setToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Supprimer la réservation ?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Cette action est irréversible. La réservation #{toDelete?.id} de {toDelete?.clientName} sera définitivement supprimée.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Annuler</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => { deleteMutation.mutate(toDelete!.id); setToDelete(null) }}
+            >
+              Supprimer
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

@@ -26,4 +26,6 @@ export const reservationsApi = {
     api.get<Reservation>(`/reservations/${id}`).then((r) => r.data),
   updateStatus: (id: number, status: ReservationStatus) =>
     api.patch<Reservation>(`/reservations/${id}/status`, { status }).then((r) => r.data),
+  delete: (id: number) =>
+    api.delete(`/reservations/${id}`),
 }

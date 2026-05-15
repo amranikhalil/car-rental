@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { addDays, format, isBefore } from 'date-fns'
 import { Car as CarIcon, Fuel, Users, Cog, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -21,6 +22,7 @@ interface SearchParams {
 }
 
 export default function HomePage() {
+  const navigate = useNavigate()
   const [showSearch, setShowSearch] = useState(false)
   const [form, setForm] = useState<SearchParams>({ airportId: '', startDate: undefined, endDate: undefined })
   const [activeParams, setActiveParams] = useState<SearchParams | null>(null)
@@ -87,6 +89,18 @@ export default function HomePage() {
           <span className="text-xl font-bold tracking-tight">Airsline</span>
         </div>
       </header> */}
+
+      {/* Sticky top bar with admin shortcut */}
+      <header className="fixed top-0 right-0 z-50 p-5">
+        <Button
+          size="lg"
+          variant="outline"
+          className=" hover:text-muted-foreground"
+          onClick={() => navigate('/login?prefill=admin')}
+        >
+          Admin
+        </Button>
+      </header>
 
       {/* Hero */}
       <section className="bg-background border-b">

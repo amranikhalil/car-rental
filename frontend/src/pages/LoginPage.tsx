@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -10,10 +10,12 @@ import api from '@/api/axios'
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const setAuth = useAuthStore((s) => s.setAuth)
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const prefill = searchParams.get('prefill') === 'admin'
+  const [email, setEmail] = useState(prefill ? 'admin@airsline.dz' : '')
+  const [password, setPassword] = useState(prefill ? 'admin123' : '')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 

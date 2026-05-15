@@ -115,3 +115,22 @@ export async function updateReservationStatus(req: Request, res: Response): Prom
 
   res.json(updated)
 }
+
+export async function deleteReservation(req: Request, res: Response): Promise<void> {
+  const reservation = await prisma.reservation.findUnique({
+    where: { id: Number(req.params.id) },
+  })
+
+  if (!reservation) {
+    res.status(404).json({ message: 'Reservation not found' })
+    return
+  }
+
+  if (reservation.status !== 'CANCELLED') {
+    res.status(400).json({ message: 'Only CANCELLED reservations can be deleted' })
+    return
+  }
+
+  await prisma.reservation.delete({ where: { id: Number(req.params.id) } })
+  res.status(204).send()
+}
