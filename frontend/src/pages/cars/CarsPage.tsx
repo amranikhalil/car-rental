@@ -68,8 +68,8 @@ export default function CarsPage() {
       <div className="rounded-lg border bg-card">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Voiture</TableHead>
+            <TableRow className="bg-gray-50/80 hover:bg-gray-50/80 border-b border-gray-200"> 
+              <TableHead >Voiture</TableHead>
               <TableHead>Aéroport</TableHead>
               <TableHead>Prix / jour</TableHead>
               <TableHead>Transmission</TableHead>
