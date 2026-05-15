@@ -8,6 +8,7 @@ import HomePage from '@/pages/home/HomePage'
 import { useAuthStore } from '@/store/auth.store'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 function ProtectedRoute() {
   const token = useAuthStore((s) => s.token)
@@ -68,6 +69,7 @@ function AdminLayout() {
 
 export default function App() {
   return (
+    <TooltipProvider delayDuration={300}>
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
@@ -85,5 +87,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </TooltipProvider>
   )
 }

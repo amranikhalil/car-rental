@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { airportsApi, carsApi, type Car, type CarPayload } from '@/api/cars'
+import PhotoUploader from '@/components/PhotoUploader'
 
 interface Props {
   open: boolean
@@ -29,7 +30,7 @@ const defaultForm: CarPayload = {
 export default function CarForm({ open, onClose, car }: Props) {
   const qc = useQueryClient()
   const [form, setForm] = useState<CarPayload>(defaultForm)
-  const [photosInput, setPhotosInput] = useState('')
+  const [isUploading, setIsUploading] = useState(false)
 
   const { data: airports = [] } = useQuery({
     queryKey: ['airports'],
@@ -50,10 +51,8 @@ export default function CarForm({ open, onClose, car }: Props) {
         airportId: car.airportId,
         isAvailable: car.isAvailable,
       })
-      setPhotosInput(car.photos.join('\n'))
     } else {
       setForm(defaultForm)
-      setPhotosInput('')
     }
   }, [car, open])
 
@@ -72,11 +71,7 @@ export default function CarForm({ open, onClose, car }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const photos = photosInput
-      .split('\n')
-      .map((u) => u.trim())
-      .filter(Boolean)
-    mutation.mutate({ ...form, photos })
+    mutation.mutate(form)
   }
 
   return (
@@ -176,12 +171,12 @@ export default function CarForm({ open, onClose, car }: Props) {
           </div>
 
           <div className="space-y-1.5">
-            <Label>Photos (URLs, une par ligne)</Label>
-            <textarea
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px] resize-none focus:outline-none focus:ring-1 focus:ring-ring"
-              value={photosInput}
-              onChange={(e) => setPhotosInput(e.target.value)}
-              placeholder="https://..."
+            <Label>Photos</Label>
+            <PhotoUploader
+              value={form.photos}
+              onChange={(urls) => set('photos', urls)}
+              onUploadingChange={setIsUploading}
+              maxFiles={6}
             />
           </div>
 
@@ -207,8 +202,8 @@ export default function CarForm({ open, onClose, car }: Props) {
             <Button type="button" variant="outline" onClick={onClose}>
               Annuler
             </Button>
-            <Button type="submit" disabled={mutation.isPending}>
-              {mutation.isPending ? 'Enregistrement…' : car ? 'Modifier' : 'Ajouter'}
+            <Button type="submit" disabled={mutation.isPending || isUploading}>
+              {isUploading ? 'Upload en cours…' : mutation.isPending ? 'Enregistrement…' : car ? 'Modifier' : 'Ajouter'}
             </Button>
           </div>
         </form>

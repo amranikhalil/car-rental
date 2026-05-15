@@ -11,6 +11,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog'
 import { Eye, CheckCircle, XCircle, RotateCcw, Trash2 } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
@@ -144,38 +145,68 @@ export default function ReservationsPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex justify-end gap-1">
-                      <Button size="icon" variant="ghost" onClick={() => setDetail(r)}>
-                        <Eye className="w-4 h-4" />
-                      </Button>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button size="icon" variant="ghost" onClick={() => setDetail(r)}>
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Voir détails</TooltipContent>
+                      </Tooltip>
                       {r.status === 'PENDING' && (
                         <>
-                          <Button size="icon" variant="ghost" className="text-green-600 hover:text-green-600"
-                            onClick={() => updateStatus(r, 'CONFIRMED')}>
-                            <CheckCircle className="w-4 h-4" />
-                          </Button>
-                          <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive"
-                            onClick={() => updateStatus(r, 'CANCELLED')}>
-                            <XCircle className="w-4 h-4" />
-                          </Button>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button size="icon" variant="ghost" className="text-green-600 hover:text-green-600"
+                                onClick={() => updateStatus(r, 'CONFIRMED')}>
+                                <CheckCircle className="w-4 h-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Confirmer</TooltipContent>
+                          </Tooltip>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive"
+                                onClick={() => updateStatus(r, 'CANCELLED')}>
+                                <XCircle className="w-4 h-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Annuler</TooltipContent>
+                          </Tooltip>
                         </>
                       )}
                       {r.status === 'CONFIRMED' && (
                         <>
-                          <Button size="icon" variant="ghost" className="text-blue-600 hover:text-blue-600"
-                            onClick={() => updateStatus(r, 'RETURNED')}>
-                            <RotateCcw className="w-4 h-4" />
-                          </Button>
-                          <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive"
-                            onClick={() => updateStatus(r, 'CANCELLED')}>
-                            <XCircle className="w-4 h-4" />
-                          </Button>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button size="icon" variant="ghost" className="text-blue-600 hover:text-blue-600"
+                                onClick={() => updateStatus(r, 'RETURNED')}>
+                                <RotateCcw className="w-4 h-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Marquer retournée</TooltipContent>
+                          </Tooltip>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive"
+                                onClick={() => updateStatus(r, 'CANCELLED')}>
+                                <XCircle className="w-4 h-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Annuler</TooltipContent>
+                          </Tooltip>
                         </>
                       )}
                       {r.status === 'CANCELLED' && (
-                        <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive"
-                          onClick={() => setToDelete(r)}>
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive"
+                              onClick={() => setToDelete(r)}>
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Supprimer</TooltipContent>
+                        </Tooltip>
                       )}
                     </div>
                   </TableCell>
