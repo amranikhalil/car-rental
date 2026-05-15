@@ -3,12 +3,26 @@ import prisma from "../lib/prisma";
 import { createCarSchema, updateCarSchema } from "../schemas/car.schema";
 
 export async function getCars(req: Request, res: Response): Promise<void> {
-  const { airportId } = req.query;
+  const { airportId, startDate, endDate } = req.query;
+
+  const where: Record<string, unknown> = { isAvailable: true };
+  if (airportId) where.airportId = Number(airportId);
+
+  if (startDate && endDate) {
+    const start = new Date(startDate as string);
+    const end = new Date(endDate as string);
+    where.reservations = {
+      none: {
+        status: { in: ['PENDING', 'CONFIRMED'] },
+        AND: [{ startDate: { lt: end } }, { endDate: { gt: start } }],
+      },
+    };
+  }
 
   const cars = await prisma.car.findMany({
-    where: airportId ? { airportId: Number(airportId) } : undefined,
+    where,
     include: { airport: true },
-    orderBy: { createdAt: "desc" },
+    orderBy: { pricePerDay: 'asc' },
   });
 
   res.json(cars);

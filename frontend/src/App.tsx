@@ -3,6 +3,7 @@ import { Car, CalendarCheck, LogOut } from 'lucide-react'
 import LoginPage from '@/pages/LoginPage'
 import CarsPage from '@/pages/cars/CarsPage'
 import ReservationsPage from '@/pages/reservations/ReservationsPage'
+import SearchPage from '@/pages/search/SearchPage'
 import { useAuthStore } from '@/store/auth.store'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -68,7 +69,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/search" element={<SearchPage />} />
+
+        {/* Protected admin routes */}
         <Route element={<ProtectedRoute />}>
           <Route element={<AdminLayout />}>
             <Route path="/cars" element={<CarsPage />} />
