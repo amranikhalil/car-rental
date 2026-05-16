@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { addDays, format, isBefore } from 'date-fns'
@@ -35,6 +35,13 @@ export default function HomePage() {
     queryKey: ['airports'],
     queryFn: airportsApi.getAll,
   })
+
+  useEffect(() => {
+    if (airports.length > 0 && !form.airportId) {
+      const alg = airports.find((a) => a.code === 'ALG')
+      if (alg) setForm((p) => ({ ...p, airportId: String(alg.id) }))
+    }
+  }, [airports])
 
   const { data: cars = [], isLoading } = useQuery({
     queryKey: ['cars', activeParams],
@@ -136,7 +143,7 @@ export default function HomePage() {
       </section>
 
       {/* Search form — slides in on demand */}
-      {showSearch && (
+      {(
         <div ref={searchRef} className="border-b bg-background animate-in slide-in-from-top-4 duration-300">
           <div className="max-w-5xl mx-auto px-6 py-6">
             <SearchBar

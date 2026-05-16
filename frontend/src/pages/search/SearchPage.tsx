@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { addDays, isBefore, format } from 'date-fns'
 import { Car as CarIcon, Fuel, Users, Cog, X } from 'lucide-react'
@@ -32,6 +32,13 @@ export default function SearchPage() {
     queryKey: ['airports'],
     queryFn: airportsApi.getAll,
   })
+
+  useEffect(() => {
+    if (airports.length > 0 && !form.airportId) {
+      const alg = airports.find((a) => a.code === 'ALG')
+      if (alg) setForm((p) => ({ ...p, airportId: String(alg.id) }))
+    }
+  }, [airports])
 
   const { data: cars = [], isLoading } = useQuery({
     queryKey: ['cars', activeParams],
