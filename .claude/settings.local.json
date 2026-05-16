@@ -19,7 +19,9 @@
       "Bash(curl -s http://localhost:3000/api/airports)",
       "Bash(curl *)",
       "Bash(node -e \"require\\('tw-animate-css'\\)\")",
-      "Bash(node -e \"require\\('@fontsource-variable/geist'\\)\")"
+      "Bash(node -e \"require\\('@fontsource-variable/geist'\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
