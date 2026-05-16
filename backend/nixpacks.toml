@@ -1,0 +1,11 @@
+[phases.install]
+cmds = ["npm ci --ignore-scripts"]
+
+[phases.build]
+cmds = [
+  "DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/airsline} npx prisma generate",
+  "npm run build"
+]
+
+[start]
+cmd = "npm run start:prod"
