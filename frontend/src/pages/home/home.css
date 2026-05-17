@@ -1,0 +1,784 @@
+/* ─────────────────────────────────────────────────────────────
+   Airsline Homepage — Sahara palette design system
+   ───────────────────────────────────────────────────────────── */
+
+@layer base {
+  * { box-sizing: border-box; }
+}
+
+.home-root {
+  --ink: #1a1410;
+  --paper: #faf6ef;
+  --paper-2: #f1e8d8;
+  --brand: #c8552b;
+  --brand-2: #b08948;
+  --teal: #0f4c5c;
+  --muted: rgba(26, 20, 16, 0.6);
+  --line: rgba(26, 20, 16, 0.12);
+  --shadow-1: 0 1px 2px rgba(26, 20, 16, .04), 0 8px 24px rgba(26, 20, 16, .06);
+  --shadow-2: 0 30px 80px -20px rgba(26, 20, 16, .25);
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.home-root img { display: block; max-width: 100%; }
+.home-root button { font: inherit; cursor: pointer; }
+
+/* ── Type ───────────────────────────────────────────────────── */
+.home-root .serif {
+  font-family: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.home-root .eyebrow {
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.home-root .page {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+@media (max-width: 720px) { .home-root .page { padding: 0 20px; } }
+
+/* ── Top nav ────────────────────────────────────────────────── */
+.home-root .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+}
+.home-root .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Instrument Serif", serif;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.home-root .logo-mark {
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 50%;
+}
+.home-root .nav-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.home-root .nav-cta:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.home-root .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--brand);
+  color: #fff;
+  border: 0;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .005em;
+  transition: transform .15s ease, box-shadow .15s ease;
+  box-shadow: 0 8px 22px -10px var(--brand);
+  cursor: pointer;
+}
+.home-root .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -10px var(--brand); }
+.home-root .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+.home-root .btn.dark { background: var(--ink); color: var(--paper); box-shadow: 0 8px 22px -10px rgba(0,0,0,.4); }
+.home-root .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+.home-root .btn.ghost:hover { background: rgba(0,0,0,.04); }
+
+/* ── Chip ───────────────────────────────────────────────────── */
+.home-root .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(26,20,16,.06);
+  font-size: 12px;
+  font-weight: 500;
+}
+.home-root .chip.brand { background: color-mix(in oklab, var(--brand) 18%, transparent); color: var(--brand); }
+.home-root .poster-chip {
+  background: rgba(255,255,255,.16);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.18);
+}
+.home-root .poster-chip.gold {
+  background: rgba(243, 216, 166, .22);
+  color: #ffe6b8;
+  border-color: rgba(243, 216, 166, .35);
+}
+
+/* ── Booking form ───────────────────────────────────────────── */
+.home-root .booking {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  box-shadow: var(--shadow-2);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto;
+  gap: 8px;
+  align-items: stretch;
+}
+.home-root .bk-field {
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  background: var(--paper);
+  display: flex; flex-direction: column;
+  gap: 2px;
+}
+.home-root .bk-field .lbl {
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.home-root .bk-field input,
+.home-root .bk-field select {
+  border: 0; background: transparent;
+  font: 500 15px/1.2 "Manrope", sans-serif;
+  color: var(--ink);
+  padding: 2px 0;
+  outline: none;
+  width: 100%;
+}
+.home-root .bk-field:focus-within { background: #fff; box-shadow: inset 0 0 0 1.5px var(--brand); }
+.home-root .bk-cta {
+  background: var(--ink);
+  color: var(--paper);
+  border: 0;
+  border-radius: var(--r-md);
+  padding: 0 22px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 56px;
+  cursor: pointer;
+  transition: background .15s;
+  white-space: nowrap;
+}
+.home-root .bk-cta:hover { background: var(--brand); }
+.home-root .bk-cta:disabled { opacity: .45; cursor: not-allowed; background: var(--ink); }
+
+/* Tablet: two-column booking form */
+@media (max-width: 880px) {
+  .home-root .booking { grid-template-columns: 1fr 1fr; }
+  .home-root .booking .bk-cta { grid-column: 1 / -1; }
+}
+
+/* ── Section ────────────────────────────────────────────────── */
+.home-root section { padding: 96px 0; }
+.home-root .section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 720px;
+  margin-bottom: 48px;
+}
+.home-root .section-head h2 {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.home-root .section-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 560px;
+}
+
+/* ── Hero Poster (HeroB) ────────────────────────────────────── */
+.home-root .hero { padding: 8px 0 64px; }
+
+.home-root .hero-b .frame {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: var(--ink);
+  height: 640px;
+}
+.home-root .hero-b .frame.poster {
+  background: transparent;
+  overflow: hidden;
+}
+.home-root .hero-b .poster-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 20% 20%, #e07a3f 0%, transparent 60%),
+    linear-gradient(135deg, #c8552b 0%, #a8451f 55%, #7d3214 100%);
+}
+.home-root .hero-b .poster-bg::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,.04) 0.7px, transparent 0.7px),
+    radial-gradient(rgba(0,0,0,.05) 0.7px, transparent 0.7px);
+  background-size: 3px 3px, 5px 5px;
+  background-position: 0 0, 1px 2px;
+  mix-blend-mode: overlay;
+  opacity: .9;
+  pointer-events: none;
+}
+.home-root .hero-b .poster-disc {
+  position: absolute;
+  right: -160px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 820px; height: 820px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f3e2c2 0%, #e6cd9f 55%, #c9a86d 100%);
+  box-shadow:
+    inset 60px -60px 120px rgba(125,80,32,.25),
+    inset -40px 40px 80px rgba(255,240,210,.35),
+    0 40px 80px rgba(0,0,0,.15);
+}
+.home-root .hero-b .poster-arc {
+  position: absolute;
+  right: -120px; top: 50%;
+  transform: translateY(-50%);
+  width: 740px; height: 740px;
+  pointer-events: none;
+}
+.home-root .hero-b .poster-mark {
+  position: absolute;
+  top: 36px; right: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: #4a2a16;
+  z-index: 3;
+}
+.home-root .hero-b .poster-mark-num {
+  font-family: "Instrument Serif", serif;
+  font-size: 56px;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.home-root .hero-b .poster-mark-lbl {
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: .7;
+  margin-top: 2px;
+}
+.home-root .hero-b .poster-car {
+  position: absolute;
+  right: -70px; top: 50%;
+  transform: translate(0, -42%);
+  width: 67%;
+  max-width: 940px;
+  z-index: 4;
+  pointer-events: none;
+}
+.home-root .hero-b .poster-car img {
+  width: 100%; height: auto; display: block;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.22)) contrast(1.04) saturate(1.02);
+}
+.home-root .hero-b .poster-car-shadow {
+  position: absolute;
+  left: 18%; right: 14%; bottom: 6%;
+  height: 12px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.62) 0%, rgba(0,0,0,.28) 45%, transparent 75%);
+  filter: blur(3px);
+  border-radius: 50%;
+  z-index: -1;
+}
+.home-root .hero-b .poster-copy {
+  position: relative;
+  z-index: 5;
+  padding: 56px 0 56px 56px;
+  max-width: 620px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  color: #fff;
+}
+.home-root .poster-h1 {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: clamp(48px, 6.4vw, 86px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15), 0 8px 28px rgba(0,0,0,.30);
+}
+.home-root .poster-h1 em {
+  font-style: italic;
+  background: linear-gradient(180deg, #ffeec2 0%, #d99b3a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(60,28,8,.55)) drop-shadow(0 8px 18px rgba(0,0,0,.35));
+}
+.home-root .poster-sub {
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(255,255,255,.88);
+  max-width: 460px;
+  text-shadow: 0 2px 10px rgba(0,0,0,.25);
+  margin: 0;
+}
+.home-root .hero-b .badge-row {
+  display: flex; gap: 8px;
+  flex-wrap: wrap;
+}
+.home-root .booking-wrap {
+  margin-top: -20px;
+  position: relative;
+  z-index: 3;
+  padding: 0 0;
+}
+
+@media (max-width: 1100px) {
+  .home-root .hero-b .poster-disc { width: 600px; height: 600px; right: -200px; }
+  .home-root .hero-b .poster-car { width: 62%; right: -40px; }
+}
+
+@media (max-width: 880px) {
+  /* Frame switches to flex column so copy → car flows naturally */
+  .home-root .hero-b .frame.poster {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Disc: sinks to the bottom behind the car area */
+  .home-root .hero-b .poster-disc {
+    width: 640px; height: 640px;
+    right: 50%; top: auto; bottom: -450px;
+    transform: translateX(50%);
+  }
+
+  .home-root .hero-b .poster-arc { display: none; }
+  .home-root .hero-b .poster-mark { top: 16px; right: 20px; }
+  .home-root .hero-b .poster-mark-num { font-size: 32px; }
+
+  /* Copy: first — sits fully on the solid dark-orange area, no beige overlap */
+  .home-root .hero-b .poster-copy {
+    position: relative;
+    z-index: 5;
+    padding: 48px 24px 32px;
+    max-width: 100%;
+    height: auto;
+    justify-content: flex-start;
+  }
+
+  /* Car: second — full width, grounded visually on the beige disc */
+  .home-root .hero-b .poster-car {
+    position: relative;
+    top: auto; right: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    z-index: 4;
+  }
+
+  /* Softer, realistic studio shadow — replaces the heavy dark smudge */
+  .home-root .hero-b .poster-car img {
+    filter:
+      drop-shadow(0 20px 48px rgba(0,0,0,.18))
+      drop-shadow(0 4px 10px rgba(0,0,0,.10))
+      contrast(1.02) saturate(1.01);
+  }
+
+  /* Hide the separate radial-blur shadow element on mobile */
+  .home-root .hero-b .poster-car-shadow { display: none; }
+}
+
+/* Booking form: full vertical stack on small phones */
+@media (max-width: 540px) {
+  .home-root .booking {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+}
+
+/* ── Trust strip ────────────────────────────────────────────── */
+.home-root .trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+.home-root .trust-strip .item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.home-root .trust-strip .item .icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--paper-2);
+  display: grid; place-items: center;
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ── How it works ───────────────────────────────────────────── */
+.home-root .steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.home-root .step {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 320px;
+  position: relative;
+  overflow: hidden;
+}
+.home-root .step-num {
+  font-family: "Instrument Serif", serif;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--brand);
+  margin-bottom: -6px;
+}
+.home-root .step h3 {
+  font-family: "Instrument Serif", serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.home-root .step p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 0;
+}
+.home-root .step-illo {
+  margin-top: auto;
+  height: 110px;
+  border-radius: var(--r-md);
+  background: var(--paper-2);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+@media (max-width: 880px) { .home-root .steps { grid-template-columns: 1fr; } }
+
+/* ── Testimonials ───────────────────────────────────────────── */
+.home-root .testimonials-wrap {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--r-xl);
+  padding: 80px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.home-root .testimonials-wrap .section-head h2 { color: var(--paper); }
+.home-root .testimonials-wrap .section-head p { color: rgba(250,246,239,.65); }
+.home-root .testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.home-root .testimonial {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.home-root .testimonial .quote {
+  font-family: "Instrument Serif", serif;
+  font-size: 20px;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.home-root .testimonial .who {
+  display: flex; align-items: center; gap: 12px;
+}
+.home-root .testimonial .avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--brand);
+  display: grid; place-items: center;
+  color: #fff;
+  font-family: "Instrument Serif", serif;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.home-root .testimonial .tname { font-size: 14px; font-weight: 600; }
+.home-root .testimonial .tmeta { font-size: 12px; color: rgba(250,246,239,.55); }
+.home-root .stars { color: var(--brand-2); letter-spacing: 2px; font-size: 14px; }
+@media (max-width: 880px) {
+  .home-root .testimonials-wrap { padding: 56px 24px; border-radius: var(--r-lg); }
+  .home-root .testimonials-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Contact / WhatsApp ─────────────────────────────────────── */
+.home-root .contact {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.home-root .contact-card {
+  background: #25D366;
+  color: #fff;
+  border-radius: var(--r-xl);
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.home-root .contact-card .wa-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.18);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.home-root .contact-card h3 {
+  font-family: "Instrument Serif", serif;
+  font-size: 44px;
+  line-height: 1.05;
+  margin: 20px 0 16px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+.home-root .contact-card p { margin: 0 0 28px; opacity: .92; font-size: 16px; line-height: 1.5; }
+.home-root .wa-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff;
+  color: #0d1f12;
+  border: 0;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s;
+}
+.home-root .wa-btn:hover { transform: translateY(-1px); }
+.home-root .contact-card .phone {
+  margin-top: 28px;
+  display: flex; align-items: center; gap: 10px;
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(22px, 2.2vw, 28px);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.home-root .contact-channels { display: flex; flex-direction: column; gap: 16px; }
+.home-root .channel {
+  display: flex; align-items: center; gap: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color .15s;
+}
+.home-root .channel:hover { border-color: var(--brand); }
+.home-root .channel-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--paper-2);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+.home-root .channel-text .ct1 { font-size: 12px; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+.home-root .channel-text .ct2 { font-size: 17px; font-weight: 500; margin-top: 2px; color: var(--ink); }
+@media (max-width: 880px) {
+  .home-root .contact { grid-template-columns: 1fr; gap: 32px; }
+  .home-root .contact-card { padding: 32px; }
+  .home-root .contact-card h3 { font-size: 34px; }
+}
+
+/* ── Car grid ───────────────────────────────────────────────── */
+.home-root .cars-section { padding: 80px 0; }
+.home-root .cars-section h2 {
+  font-family: "Instrument Serif", serif;
+  font-size: 40px;
+  font-weight: 400;
+  margin: 0 0 8px;
+  letter-spacing: -0.015em;
+}
+.home-root .cars-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.home-root .cars-sub {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 0;
+}
+.home-root .reset-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.home-root .reset-btn:hover { border-color: var(--ink); color: var(--ink); }
+.home-root .cars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1024px) { .home-root .cars-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .home-root .cars-grid { grid-template-columns: 1fr; } }
+
+.home-root .car-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+}
+.home-root .car-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+.home-root .car-photo {
+  height: 180px;
+  background: var(--paper-2);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.home-root .car-photo img { width: 100%; height: 100%; object-fit: cover; }
+.home-root .car-body { padding: 20px; }
+.home-root .car-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+.home-root .car-name {
+  font-family: "Instrument Serif", serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+.home-root .car-year { font-size: 13px; color: var(--muted); margin: 2px 0 0; }
+.home-root .airport-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--brand) 14%, transparent);
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  flex-shrink: 0;
+}
+.home-root .car-specs {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.home-root .car-spec {
+  display: flex; align-items: center; gap: 5px;
+}
+.home-root .car-divider {
+  height: 1px;
+  background: var(--line);
+  margin-bottom: 16px;
+}
+.home-root .car-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.home-root .car-price {
+  font-family: "Instrument Serif", serif;
+  font-size: 24px;
+  color: var(--ink);
+}
+.home-root .car-price span { font-family: "Manrope", sans-serif; font-size: 13px; color: var(--muted); }
+.home-root .empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+}
+.home-root .empty-state svg { margin: 0 auto 16px; opacity: .3; }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.home-root .home-footer {
+  padding: 48px 0 64px;
+  border-top: 1px solid var(--line);
+  margin-top: 64px;
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.home-root .home-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+.home-root .home-footer a:hover { color: var(--ink); }
+.home-root .footer-links { display: flex; gap: 24px; }
