@@ -5,7 +5,7 @@ export default function Contact() {
     <section id="contact">
       <div className="page">
         <div className="section-head">
-          <span className="eyebrow">Une question ?</span>
+          {/* <span className="eyebrow">Une question ?</span> */}
           <h2>Parlez à un agent<br />francophone, maintenant.</h2>
           <p>Réponse en moins de cinq minutes, du Lundi au Dimanche, de 7 h à 23 h (heure d'Alger).</p>
         </div>

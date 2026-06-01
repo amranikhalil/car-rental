@@ -51,21 +51,21 @@ export default function SearchBar({
             </Select>
           </div>
 
-          <div className="space-y-1.5 space-x-2">
-            <label className="text-sm font-medium">Date d'arrivée</label>
+          <div className="space-y-1.5">
             <DatePicker
               value={startDate}
               onChange={onStartChange}
+              label="Date d'arrivée"
               placeholder="Arrivée"
               disabled={(d) => isBefore(d, today)}
             />
           </div>
 
-          <div className="space-y-1.5 space-x-2">
-            <label className="text-sm font-medium">Date de retour</label>
+          <div className="space-y-1.5">
             <DatePicker
               value={endDate}
               onChange={onEndChange}
+              label="Date de retour"
               placeholder="Retour"
               disabled={(d) =>
                 isBefore(d, today) || (startDate ? !isBefore(startDate, d) : false)

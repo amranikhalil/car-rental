@@ -201,7 +201,7 @@
 }
 
 /* ── Section ────────────────────────────────────────────────── */
-.home-root section { padding: 96px 0; }
+/* .home-root section { padding: 96px 0; } */
 .home-root .section-head {
   display: flex;
   flex-direction: column;
@@ -233,7 +233,8 @@
   border-radius: var(--r-xl);
   overflow: hidden;
   background: var(--ink);
-  height: 640px;
+  height: clamp(440px, calc(100dvh - 180px), 640px);
+
 }
 .home-root .hero-b .frame.poster {
   background: transparent;

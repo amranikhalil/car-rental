@@ -16,8 +16,8 @@ export default function TrustStrip() {
         Annulation gratuite 48 h
       </div>
       <div className="item">
-        <span className="icon">FR</span>
-        Équipe francophone
+        <span className="icon">ALG</span>
+        Équipe Algerienne
       </div>
     </div>
   )

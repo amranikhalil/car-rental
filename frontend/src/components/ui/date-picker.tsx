@@ -11,21 +11,27 @@ interface Props {
   value?: Date
   onChange: (date: Date | undefined) => void
   placeholder?: string
+  label?: string
   disabled?: (date: Date) => boolean
 }
 
-export function DatePicker({ value, onChange, placeholder = 'Choisir une date', disabled }: Props) {
+export function DatePicker({ value, onChange, placeholder = 'Choisir une date', label, disabled }: Props) {
   const [open,setOpen] = useState(false)
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className={cn('w-full justify-start text-left font-normal', !value && 'text-muted-foreground')}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {value ? format(value, 'dd MMM yyyy', { locale: fr }) : placeholder}
-        </Button>
+      <PopoverTrigger
+        render={
+          <Button
+            variant="outline"
+            className={cn('w-full h-auto justify-start text-left font-normal py-2', !value && 'text-muted-foreground')}
+          />
+        }
+      >
+        <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+        <span className="flex flex-col leading-tight">
+          {label && <span className="text-xs font-medium text-foreground">{label}</span>}
+          <span>{value ? format(value, 'dd MMM yyyy', { locale: fr }) : placeholder}</span>
+        </span>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar

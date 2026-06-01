@@ -55,10 +55,6 @@ export default function HeroSection({
 
         {/* Copy first in DOM — appears first on mobile, left column on desktop */}
         <div className="copy poster-copy">
-          <div className="badge-row">
-            <span className="chip poster-chip">Aéroports d'Algérie</span>
-            <span className="chip poster-chip gold">Sans attente</span>
-          </div>
           <h1 className="poster-h1">
             Une voiture<br />
             qui vous attend,<br />
@@ -94,7 +90,10 @@ export default function HeroSection({
             </select>
           </div>
 
-          <div className="bk-field">
+          <div
+            className="bk-field"
+            onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
+          >
             <span className="lbl">Date d'arrivée</span>
             <input
               type="date"
@@ -104,7 +103,10 @@ export default function HeroSection({
             />
           </div>
 
-          <div className="bk-field">
+          <div
+            className="bk-field"
+            onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
+          >
             <span className="lbl">Date de retour</span>
             <input
               type="date"
