@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 import { addDays, isBefore } from 'date-fns'
 import { airportsApi, carsApi, type Car } from '@/api/cars'
 import BookingModal from '@/pages/search/BookingModal'
@@ -18,7 +17,6 @@ interface SearchParams {
 }
 
 export default function HomePage() {
-  const navigate = useNavigate()
   const [form, setForm] = useState<SearchParams>({ airportId: '', startDate: undefined, endDate: undefined })
   const [activeParams, setActiveParams] = useState<SearchParams | null>(null)
   const [booking, setBooking] = useState<Car | null>(null)
@@ -77,13 +75,6 @@ export default function HomePage() {
 
   return (
     <div className="home-root">
-      {/* Admin shortcut */}
-      <header style={{ position: 'fixed', top: 0, right: 0, zIndex: 50, padding: 20 }}>
-        <button className="nav-cta" onClick={() => navigate('/login?prefill=admin')}>
-          Admin
-        </button>
-      </header>
-
       {/* Nav */}
       <div className="page">
         <nav className="nav">
