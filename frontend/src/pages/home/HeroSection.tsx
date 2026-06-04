@@ -56,13 +56,14 @@ export default function HeroSection({
         {/* Copy first in DOM — appears first on mobile, left column on desktop */}
         <div className="copy poster-copy">
           <h1 className="poster-h1">
-            Une voiture<br />
+            Une voiture <br />
             qui vous attend,<br />
-            <em>dès l'atterrissage.</em>
+            <em>où que vous alliez</em>
           </h1>
           <p className="sub poster-sub">
-            Réservez avant le départ. Récupérez à l'aéroport. Roulez sans détour —
-            de la Méditerranée jusqu'au Hoggar.
+           Réservez en ligne, récupérez à l'aéroport d'Alger ou dans l'une de nos agences. 
+           Roulez sans détour — de la Méditerranée jusqu'au Hoggar.
+
           </p>
         </div>
 
@@ -76,12 +77,12 @@ export default function HeroSection({
       <div className="booking-wrap">
         <form className="booking" onSubmit={(e) => { e.preventDefault(); if (canSearch) onSearch() }}>
           <div className="bk-field">
-            <span className="lbl">Aéroport d'arrivée</span>
+            <span className="lbl"> LIEU DE RÉCUPÉRATION </span>
             <select
               value={airportId}
               onChange={(e) => onAirportChange(e.target.value)}
             >
-              <option value="">Choisir un aéroport</option>
+              <option value="">Choisir un lieux</option>
               {airports.map((a) => (
                 <option key={a.id} value={String(a.id)}>
                   {a.city} — {a.code}
@@ -94,7 +95,7 @@ export default function HeroSection({
             className="bk-field"
             onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
           >
-            <span className="lbl">Date d'arrivée</span>
+            <span className="lbl">DATE DE RÉCUPÉRATION</span>
             <input
               type="date"
               min={today}
@@ -107,7 +108,7 @@ export default function HeroSection({
             className="bk-field"
             onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
           >
-            <span className="lbl">Date de retour</span>
+            <span className="lbl">DATE DE RENDU</span>
             <input
               type="date"
               min={startDate ? format(startDate, 'yyyy-MM-dd') : today}

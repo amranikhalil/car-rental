@@ -13,12 +13,8 @@ async function main() {
 
   const airports = [
     { name: "Aéroport Houari Boumédiène", city: "Alger", code: "ALG" },
-    { name: "Aéroport Mohamed Boudiaf", city: "Constantine", code: "CZL" },
-    { name: "Aéroport Ahmed Ben Bella", city: "Oran", code: "ORN" },
-    { name: "Aéroport Rabah Bitat", city: "Annaba", code: "AAE" },
-    { name: "Aéroport Abane Ramdane", city: "Béjaïa", code: "BJA" },
-    { name: "Aéroport Bou Saada", city: "M'Sila", code: "BUJ" },
-    { name: "Aéroport Tébessa", city: "Tébessa", code: "TEE" },
+    { name: "agence", city: "Bouira", code: "AGENCE" },
+ 
   ];
 
   for (const airport of airports) {
