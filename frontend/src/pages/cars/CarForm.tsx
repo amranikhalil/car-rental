@@ -154,7 +154,7 @@ export default function CarForm({ open, onClose, car }: Props) {
           </div>
 
           <div className="space-y-1.5">
-            <Label>Aéroport</Label>
+            <Label>Lieu</Label>
             <Select
               value={form.airportId ? String(form.airportId) : ''}
               onValueChange={(v) => set('airportId', parseInt(v))}

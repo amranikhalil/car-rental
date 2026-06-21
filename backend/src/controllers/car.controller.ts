@@ -5,7 +5,7 @@ import { createCarSchema, updateCarSchema } from "../schemas/car.schema";
 export async function getCars(req: Request, res: Response): Promise<void> {
   const { airportId, startDate, endDate } = req.query;
 
-  const where: Record<string, unknown> = { isAvailable: true };
+  const where: Record<string, unknown> = { isAvailable: true, deletedAt: null };
   if (airportId) where.airportId = Number(airportId);
 
   if (startDate && endDate) {
@@ -21,7 +21,7 @@ export async function getCars(req: Request, res: Response): Promise<void> {
 
   const cars = await prisma.car.findMany({
     where,
-    include: { airport: true },
+    include: { airport: true},
     orderBy: { pricePerDay: 'asc' },
   });
 
@@ -29,9 +29,9 @@ export async function getCars(req: Request, res: Response): Promise<void> {
 }
 
 export async function getCarById(req: Request, res: Response): Promise<void> {
-  const car = await prisma.car.findUnique({
-    where: { id: Number(req.params.id) },
-    include: { airport: true },
+  const car = await prisma.car.findFirst({
+    where: { id: Number(req.params.id), deletedAt: null },
+    include: { airport: true},
   });
 
   if (!car) {
@@ -91,6 +91,8 @@ export async function deleteCar(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  await prisma.car.delete({ where: { id: Number(req.params.id) } });
+  await prisma.car.update({ where: { id: Number(req.params.id) }, 
+  data:{deletedAt: new Date()} });
+
   res.status(204).send();
 }

@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 
 async function main() {
   const password = await bcrypt.hash("admin123", 10);
+  await prisma.reservation.deleteMany({})
+  await prisma.car.deleteMany({})
+  await prisma.airport.deleteMany({});
   await prisma.user.upsert({
     where: { email: "admin@airsline.dz" },
     update: {},

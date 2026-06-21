@@ -9,6 +9,9 @@
     "start:prod": "npx prisma migrate deploy && node dist/index.js",
     "seed": "ts-node prisma/seed.ts"
   },
+  "prisma": {
+  "seed": "ts-node prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
