@@ -57,38 +57,39 @@ export async function createReservation(req: Request, res: Response): Promise<vo
     res.status(404).json({ message: 'Car not found' })
     return
   }
+  const reservation = await prisma.$transaction(async(tx)=>{
+      const conflict = await tx.reservation.findFirst({
+      where: {
+        carId,
+        status: { in: ['PENDING', 'CONFIRMED'] },
+        AND: [{ startDate: { lt: end } }, { endDate: { gt: start } }],
+      },
+    })
 
-  // check for conflicting reservations
-  const conflict = await prisma.reservation.findFirst({
-    where: {
-      carId,
-      status: { in: ['PENDING', 'CONFIRMED'] },
-      AND: [{ startDate: { lt: end } }, { endDate: { gt: start } }],
-    },
-  })
-
-  if (conflict) {
-    res.status(409).json({ message: 'Car already booked for these dates' })
-    return
-  }
-
-  const days = calcDays(start, end)
-  const totalPrice =
-    days * Number(car.pricePerDay) + (protection === 'BASIC' ? days * PROTECTION_FEE_PER_DAY : 0)
-
-  const reservation = await prisma.reservation.create({
-    data: {
-      ...rest,
-      carId,
-      startDate: start,
-      endDate: end,
-      protection,
-      totalPrice: totalPrice.toString(),
+    if(!conflict){
+      const days = calcDays(start, end)
+      const totalPrice =
+      days * Number(car.pricePerDay) + (protection === 'BASIC' ? days * PROTECTION_FEE_PER_DAY : 0)
+      return tx.reservation.create({
+      data: {
+        ...rest,
+        carId,
+        startDate: start,
+        endDate: end,
+        protection,
+        totalPrice: totalPrice.toString(),
     },
     include: { car: { include: { airport: true } } },
+    })
+  }
   })
-
-  res.status(201).json(reservation)
+  
+    if (!reservation){
+      res.status(409).json({ message: 'Car already booked for these dates' })
+      return 
+    }
+    res.status(201).json(reservation)
+ 
 }
 
 export async function updateReservationStatus(req: Request, res: Response): Promise<void> {

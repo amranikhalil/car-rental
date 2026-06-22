@@ -30,7 +30,7 @@ export default function HomePage() {
   useEffect(() => {
     if (airports.length > 0 && !form.airportId) {
       const alg = airports.find((a) => a.code === 'ALG')
-      if (alg) setForm((p) => ({ ...p, airportId: String(alg.id) }))
+      if (alg) setForm((p) => ({ ...p, airportId: String(alg.id),startDate:addDays(new Date(), 1) , endDate: addDays(new Date(),7)  }))
     }
   }, [airports])
 

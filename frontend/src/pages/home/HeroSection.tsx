@@ -3,6 +3,9 @@ import { IconArrow } from './Illustrations'
 import TrustStrip from './TrustStrip'
 import heroCar from '@/assets/tuxon.png'
 import type { Airport } from '@/api/cars'
+import {DatePicker} from '@/components/ui/date-picker'
+import { isBefore, startOfToday } from 'date-fns'
+
 
 interface Props {
   airports: Airport[]
@@ -96,11 +99,11 @@ export default function HeroSection({
             onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
           >
             <span className="lbl">DATE DE RÉCUPÉRATION</span>
-            <input
-              type="date"
-              min={today}
-              value={startDate ? format(startDate, 'yyyy-MM-dd') : ''}
-              onChange={handleStartChange}
+          <DatePicker
+              value={startDate}
+              onChange={onStartChange}
+              placeholder="Arrivée"
+              disabled={(d) => isBefore(d, today)}
             />
           </div>
 
@@ -109,11 +112,11 @@ export default function HeroSection({
             onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
           >
             <span className="lbl">DATE DE RENDU</span>
-            <input
-              type="date"
-              min={startDate ? format(startDate, 'yyyy-MM-dd') : today}
-              value={endDate ? format(endDate, 'yyyy-MM-dd') : ''}
-              onChange={handleEndChange}
+            <DatePicker
+              value={endDate}
+              onChange={onEndChange}
+              placeholder="Retour"
+              disabled={(d) => isBefore(d, today)}
             />
           </div>
 
