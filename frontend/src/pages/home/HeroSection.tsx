@@ -1,9 +1,8 @@
-import { format } from 'date-fns'
 import { IconArrow } from './Illustrations'
 import TrustStrip from './TrustStrip'
 import heroCar from '@/assets/tuxon.png'
 import type { Airport } from '@/api/cars'
-import {DatePicker} from '@/components/ui/date-picker'
+import { DatePicker } from '@/components/ui/date-picker'
 import { isBefore, startOfToday } from 'date-fns'
 
 
@@ -30,16 +29,7 @@ export default function HeroSection({
   onSearch,
   canSearch,
 }: Props) {
-  function handleStartChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const d = e.target.value ? new Date(e.target.value) : undefined
-    onStartChange(d)
-  }
-  function handleEndChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const d = e.target.value ? new Date(e.target.value) : undefined
-    onEndChange(d)
-  }
-
-  const today = format(new Date(), 'yyyy-MM-dd')
+  const today = startOfToday()
 
   return (
     <section className="hero hero-b">
@@ -94,12 +84,9 @@ export default function HeroSection({
             </select>
           </div>
 
-          <div
-            className="bk-field"
-            onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
-          >
+          <div className="bk-field">
             <span className="lbl">DATE DE RÉCUPÉRATION</span>
-          <DatePicker
+            <DatePicker
               value={startDate}
               onChange={onStartChange}
               placeholder="Arrivée"
@@ -107,10 +94,7 @@ export default function HeroSection({
             />
           </div>
 
-          <div
-            className="bk-field"
-            onClick={(e) => e.currentTarget.querySelector('input')?.showPicker?.()}
-          >
+          <div className="bk-field">
             <span className="lbl">DATE DE RENDU</span>
             <DatePicker
               value={endDate}

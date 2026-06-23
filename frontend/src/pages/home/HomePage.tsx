@@ -112,7 +112,7 @@ export default function HomePage() {
       </div>
 
       {/* How it works */}
-      <HowItWorks />
+      {/* <HowItWorks /> */}
 
       {/* Testimonials */}
       <Testimonials />

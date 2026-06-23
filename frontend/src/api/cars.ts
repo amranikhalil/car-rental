@@ -39,6 +39,7 @@ export interface CarPayload {
 export const carsApi = {
   getAll: (airportId?: number, startDate?: string, endDate?: string) =>
     api.get<Car[]>('/cars', { params: { airportId, startDate, endDate } }).then((r) => r.data),
+  getById: (id: number) => api.get<Car>(`/cars/${id}`).then((r) => r.data),
   create: (data: CarPayload) => api.post<Car>('/cars', data).then((r) => r.data),
   update: (id: number, data: Partial<CarPayload>) => api.put<Car>(`/cars/${id}`, data).then((r) => r.data),
   delete: (id: number) => api.delete(`/cars/${id}`),

@@ -28,7 +28,7 @@ export default function HowItWorks() {
             <span className="step-num">02</span>
             <h3>On vous accueille</h3>
             <p>
-              À votre arrivée, notre agent francophone vous attend en zone d'arrivée,
+              À votre arrivée, notre agent  vous attend en zone d'arrivée,
               votre nom sur un panneau. Vos clés et le contrat sont prêts.
             </p>
             <div className="step-illo"><SceneLand /></div>

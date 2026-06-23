@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import { X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { IconCar, IconCog, IconFuel, IconUsers } from './Illustrations'
 import type { Car } from '@/api/cars'
 
@@ -81,17 +82,19 @@ function CarCard({ car, canBook, onBook }: { car: Car; canBook: boolean; onBook:
 
   return (
     <article className="car-card">
-      <div className="car-photo">
+      <Link to={`/car/${car.id}`} className="car-photo">
         {photo
           ? <img src={photo} alt={`${car.brand} ${car.model}`} />
           : <IconCar />
         }
-      </div>
+      </Link>
 
       <div className="car-body">
         <div className="car-top">
           <div>
-            <h3 className="car-name">{car.brand} {car.model}</h3>
+            <h3 className="car-name">
+              <Link to={`/car/${car.id}`}>{car.brand} {car.model}</Link>
+            </h3>
             <p className="car-year">{car.year}</p>
           </div>
           <span className="airport-badge">{car.airport.code}</span>

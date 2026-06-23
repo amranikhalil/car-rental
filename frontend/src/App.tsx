@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate, NavLink, Outlet } from 'react-router-dom'
-import { Car, CalendarCheck, LogOut, Home } from 'lucide-react'
+import { Car, CalendarCheck, LogOut, Home, LayoutDashboard } from 'lucide-react'
 import LoginPage from '@/pages/LoginPage'
+import CarDetailPage from '@/pages/car/CarDetailPage'
+import DashboardPage from '@/pages/dashboard/DashboardPage'
 import CarsPage from '@/pages/cars/CarsPage'
 import ReservationsPage from '@/pages/reservations/ReservationsPage'
 import SearchPage from '@/pages/search/SearchPage'
@@ -16,6 +18,7 @@ function ProtectedRoute() {
 }
 
 const navItems = [
+  { to: '/dashboard', icon: LayoutDashboard, label: 'Tableau de bord' },
   { to: '/cars', icon: Car, label: 'Voitures' },
   { to: '/reservations', icon: CalendarCheck, label: 'Réservations' },
 ]
@@ -101,15 +104,17 @@ export default function App() {
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/car/:id" element={<CarDetailPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/login" element={<LoginPage />} />
 
         {/* Protected admin routes */}
         <Route element={<ProtectedRoute />}>
           <Route element={<AdminLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/cars" element={<CarsPage />} />
             <Route path="/reservations" element={<ReservationsPage />} />
-            <Route path="*" element={<Navigate to="/cars" replace />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Route>
         </Route>
       </Routes>
