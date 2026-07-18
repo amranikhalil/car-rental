@@ -118,7 +118,7 @@ export default function HomePage() {
       <Testimonials />
 
       {/* Contact */}
-      <Contact />
+      {/* <Contact /> */}
 
       {/* Car grid */}
       <div className="page">
