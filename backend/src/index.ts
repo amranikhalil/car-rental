@@ -21,6 +21,8 @@ app.use("/api/airports", airportRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/stats", dashboardRoutes);
 
+app.get('/health',(req,res)=> res.status(200).send('ok'))
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
