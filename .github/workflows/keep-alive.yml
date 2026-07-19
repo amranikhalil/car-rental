@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping backend
-        run: curl -f https://car-rental-vswf.onrender.com//health
+        run: curl -f https://car-rental-vswf.onrender.com/health
